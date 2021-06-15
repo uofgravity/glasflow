@@ -13,9 +13,8 @@ import pytest
         dict(n_conditional_inputs=1)
     ]
 )
-@pytest.mark.integration_test
 def test_coupling_flow_init(kwargs):
-    """Test the initialise method"""
+    """Test the init method"""
     flow = CouplingFlow(AffineCouplingTransform, 2, 2, **kwargs)
 
 

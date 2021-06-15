@@ -9,22 +9,42 @@ from .base import Flow
 
 
 class CouplingFlow(Flow):
-    """
+    """Base class for coupling transform based flows.
+
+    Uses an alternating binary mask and residual neural network. Others
+    settings can be configured. See parameters for details.
 
     Parameters
     ----------
-    transform_class : 
-        Explanation
+    transform_class : :obj:`nflows.transforms.coupling.CouplingTransform`
+        Class that inherits from `CouplingTransform` and implements the 
+        actual transformation.
     n_inputs : int
         Number of inputs
     n_transforms : int 
-        Number of transformation layers
+        Number of transforms
     n_conditional_inputs: int 
-        Nubmer of conditionals inputs 
+        Number of conditionals inputs 
     n_neurons : int
-        Number of neurons per transformation layer        
-    
-    
+        Number of neurons per residual block in each transform        
+    n_blocks_per_transform : int
+        Number of residual blocks per transform
+    batch_norm_within_blocks : bool
+        Enable batch normalisation within each residual block
+    batch_norm_between_transforms : bool
+        Enable batch norm between transforms
+    activation : function
+        Activation function to use. Defaults to ReLU
+    dropout_probability : float
+        Ammount of dropout to apply. 0 being no dropout and 1 being drop
+        all connections
+    linear_transform : str, {'permutation', 'lu', 'svd', None}
+        Linear transform to apply before each coupling transform.
+    distribution : :obj:`nflows.distribution.Distribtion`
+        Distribution object to use for that latent spae. If None, an n-d 
+        Gaussian is used.
+    kwargs : 
+        Keyword arguments passed to `transform_class` when is it initialsed.
     """
     def __init__(
         self,
@@ -76,7 +96,9 @@ class CouplingFlow(Flow):
                                          identity_init=True)
                 ])
             else:
-                raise ValueError
+                raise ValueError(
+                    f'Unknown linear transform: {linear_transform}.'
+                )
 
         def create_transform(mask):
             return transform_class(

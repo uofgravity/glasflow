@@ -22,7 +22,7 @@ class CouplingNSF(CouplingFlow):
         Positional arguments passed to the parent class.
     num_bins : int
         Number of bins for the spline in each dimension.
-    tails : {None, 'linear'}
+    tail_type : {None, 'linear'}
         Type of tails to use outside the bounds on which the splines are
         defined.
     tail_bound : float
@@ -35,7 +35,7 @@ class CouplingNSF(CouplingFlow):
         self,
         *args,
         num_bins=4,
-        tails='linear',
+        tail_type='linear',
         tail_bound=5.0,
         **kwargs
     ):
@@ -44,7 +44,7 @@ class CouplingNSF(CouplingFlow):
             transform_class, 
             *args, 
             num_bins=num_bins, 
-            tails=tails,
+            tails=tail_type,
             tail_bound=tail_bound,
             **kwargs
         )

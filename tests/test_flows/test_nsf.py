@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
+"""
+Tests for neural spline flows.
+"""
 import numpy as np
 import pytest
 import torch
 
 from glasflow.flows import CouplingNSF
 
+
 @pytest.mark.parametrize('num_bins', [4, 10])
 def test_coupling_nsf_init(num_bins):
     """Test the initialise method"""
-    flow = CouplingNSF(2, 2, num_bins=num_bins)
+    CouplingNSF(2, 2, num_bins=num_bins)
 
 
 @pytest.mark.integration_test

@@ -17,16 +17,16 @@ class CouplingFlow(Flow):
     Parameters
     ----------
     transform_class : :obj:`nflows.transforms.coupling.CouplingTransform`
-        Class that inherits from `CouplingTransform` and implements the 
+        Class that inherits from `CouplingTransform` and implements the
         actual transformation.
     n_inputs : int
         Number of inputs
-    n_transforms : int 
+    n_transforms : int
         Number of transforms
-    n_conditional_inputs: int 
-        Number of conditionals inputs 
+    n_conditional_inputs: int
+        Number of conditionals inputs
     n_neurons : int
-        Number of neurons per residual block in each transform        
+        Number of neurons per residual block in each transform
     n_blocks_per_transform : int
         Number of residual blocks per transform
     batch_norm_within_blocks : bool
@@ -41,11 +41,12 @@ class CouplingFlow(Flow):
     linear_transform : str, {'permutation', 'lu', 'svd', None}
         Linear transform to apply before each coupling transform.
     distribution : :obj:`nflows.distribution.Distribtion`
-        Distribution object to use for that latent spae. If None, an n-d 
+        Distribution object to use for that latent spae. If None, an n-d
         Gaussian is used.
-    kwargs : 
+    kwargs :
         Keyword arguments passed to `transform_class` when is it initialsed.
     """
+
     def __init__(
         self,
         transform_class,
@@ -60,13 +61,13 @@ class CouplingFlow(Flow):
         dropout_probability=0.0,
         linear_transform=None,
         distribution=None,
-        **kwargs
+        **kwargs,
     ):
 
         if not issubclass(transform_class, CouplingTransform):
             raise RuntimeError(
-                'Transform class does not inherit from `CouplingTransform`'
-            ) 
+                "Transform class does not inherit from `CouplingTransform`"
+            )
 
         def create_net(n_in, n_out):
             return ResidualNet(
@@ -77,39 +78,43 @@ class CouplingFlow(Flow):
                 num_blocks=n_blocks_per_transform,
                 activation=activation,
                 dropout_probability=dropout_probability,
-                use_batch_norm=batch_norm_within_blocks
-                )
+                use_batch_norm=batch_norm_within_blocks,
+            )
 
         def create_linear_transform():
-            if linear_transform == 'permutation':
+            if linear_transform == "permutation":
                 return transforms.RandomPermutation(features=n_inputs)
-            elif linear_transform == 'lu':
-                return transforms.CompositeTransform([
-                    transforms.RandomPermutation(features=n_inputs),
-                    transforms.LULinear(n_inputs, identity_init=True,
-                                        using_cache=False)
-                ])
-            elif linear_transform == 'svd':
-                return transforms.CompositeTransform([
-                    transforms.RandomPermutation(features=n_inputs),
-                    transforms.SVDLinear(n_inputs, num_householder=10,
-                                         identity_init=True)
-                ])
+            elif linear_transform == "lu":
+                return transforms.CompositeTransform(
+                    [
+                        transforms.RandomPermutation(features=n_inputs),
+                        transforms.LULinear(
+                            n_inputs, identity_init=True, using_cache=False
+                        ),
+                    ]
+                )
+            elif linear_transform == "svd":
+                return transforms.CompositeTransform(
+                    [
+                        transforms.RandomPermutation(features=n_inputs),
+                        transforms.SVDLinear(
+                            n_inputs, num_householder=10, identity_init=True
+                        ),
+                    ]
+                )
             else:
                 raise ValueError(
-                    f'Unknown linear transform: {linear_transform}.'
+                    f"Unknown linear transform: {linear_transform}."
                 )
 
         def create_transform(mask):
             return transform_class(
-                mask=mask,
-                transform_net_create_fn=create_net,
-                **kwargs
+                mask=mask, transform_net_create_fn=create_net, **kwargs
             )
 
         mask = torch.ones(n_inputs)
         mask[::2] = -1
-				
+
         transforms_list = []
 
         for _ in range(n_transforms):
@@ -120,9 +125,9 @@ class CouplingFlow(Flow):
             if batch_norm_between_transforms:
                 transforms_list.append(transforms.BatchNorm(n_inputs))
 
-        
         if distribution is None:
             from nflows.distributions import StandardNormal
+
             distribution = StandardNormal([n_inputs])
 
         super().__init__(

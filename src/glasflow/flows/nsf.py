@@ -5,7 +5,7 @@ Implementation of Neural Spline Flows.
 See: https://arxiv.org/abs/1906.04032
 """
 from nflows.transforms.coupling import (
-    PiecewiseRationalQuadraticCouplingTransform
+    PiecewiseRationalQuadraticCouplingTransform,
 )
 from .coupling import CouplingFlow
 
@@ -31,13 +31,9 @@ class CouplingNSF(CouplingFlow):
     kwargs :
         Keyword arguments passed to the parent class.
     """
+
     def __init__(
-        self,
-        *args,
-        num_bins=4,
-        tail_type='linear',
-        tail_bound=5.0,
-        **kwargs
+        self, *args, num_bins=4, tail_type="linear", tail_bound=5.0, **kwargs
     ):
         transform_class = PiecewiseRationalQuadraticCouplingTransform
         super().__init__(
@@ -46,5 +42,5 @@ class CouplingNSF(CouplingFlow):
             num_bins=num_bins,
             tails=tail_type,
             tail_bound=tail_bound,
-            **kwargs
+            **kwargs,
         )

@@ -9,7 +9,7 @@ import torch
 from glasflow.flows import CouplingNSF
 
 
-@pytest.mark.parametrize('num_bins', [4, 10])
+@pytest.mark.parametrize("num_bins", [4, 10])
 def test_coupling_nsf_init(num_bins):
     """Test the initialise method"""
     CouplingNSF(2, 2, num_bins=num_bins)

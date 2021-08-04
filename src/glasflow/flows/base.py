@@ -21,7 +21,9 @@ class Flow(Module):
 
         for method in ["forward", "inverse"]:
             if not hasattr(transform, method):
-                raise RuntimeError(f"Transform does not have `{method}` method")
+                raise RuntimeError(
+                    f"Transform does not have `{method}` method"
+                )
 
         for method in ["log_prob", "sample"]:
             if not hasattr(distribution, method):

@@ -35,3 +35,24 @@ def test_coupling_flow_forward_w_conditional():
     log_prob = log_prob.detach().numpy()
     assert z.shape == (10, 2)
     assert log_prob.shape == (10,)
+
+
+@pytest.mark.integration_test
+def test_coupling_flow_sample_w_conditional():
+    """Test sampling with a conditional input"""
+    n = 10
+    n_inputs = 2
+    n_conditionals = 2
+    flow = CouplingFlow(
+        AffineCouplingTransform,
+        n_inputs,
+        2,
+        n_conditional_inputs=n_conditionals,
+    )
+
+    conditional = torch.randn(n, 2)
+
+    x = flow.sample(n, conditional=conditional)
+
+    x = x.detach().numpy()
+    assert x.shape == (n, 2)

@@ -30,13 +30,13 @@ When contributing code to `glasflow` please ensure that you also contribute corr
 The tests can be run from the root directory using
 
 ```console
-pytest
+$ pytest
 ```
 
 Specific tests can be run using
 
 ```console
-pytest tests/test_<name>.py
+$ pytest tests/test_<name>.py
 ```
 
 See the `pytest` [documentation](https://docs.pytest.org/) for further details on how to write tests using `pytest`.

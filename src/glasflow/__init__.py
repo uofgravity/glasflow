@@ -9,7 +9,10 @@ Code is hosted at: https://github.com/igr-ml/glasflow
 
 nflows: https://github.com/bayesiains/nflows
 """
-from .flows import CouplingNSF, RealNVP
+from .flows import (
+    CouplingNSF,
+    RealNVP,
+)
 
 try:
     from importlib.metadata import version, PackageNotFoundError

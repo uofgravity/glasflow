@@ -5,7 +5,7 @@
 To install `glasflow` and contribute clone the repo and install the additional dependencies with:
 
 ```console
-$ cd nessai
+$ cd glasflow
 $ pip install -e .[dev]
 ```
 
@@ -17,7 +17,7 @@ This requires some setup:
 
 ```console
 $ pip install pre-commit # Should already be installed
-$ cd nessai
+$ cd glasflow
 $ pre-commit install
 ```
 

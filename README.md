@@ -31,6 +31,6 @@ flow = RealNVP(
 Please see [glasflow/examples](https://github.com/igr-ml/glasflow/tree/main/examples) for a typical training regime example.
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. You can review the contribution guidelines [here](https://github.com/igr-ml/glasflow/blob/main/CONTRIBUTING.md). For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.

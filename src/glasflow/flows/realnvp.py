@@ -4,9 +4,9 @@ Implementation of RealNVP.
 """
 from nflows.transforms.coupling import (
     AdditiveCouplingTransform,
-    AffineCouplingTransform,
 )
 from .coupling import CouplingFlow
+from ..transforms import AffineCouplingTransform
 
 
 class RealNVP(CouplingFlow):
@@ -24,7 +24,10 @@ class RealNVP(CouplingFlow):
     volume_preserving : bool, optional
         If True use additive transforms that preserve volume.
     kwargs :
-        Keyword arguments passed to the parent class.
+        Keyword arguments passed to the parent class which in turn passes any
+        kwargs to the transform class which will be either
+        :py:obj:`nflows.transforms.coupling.AdditiveCouplingTransform` or
+        :py:obj:`glasflow.transforms.coupling.AffineCouplingTransform`.
     """
 
     def __init__(self, *args, volume_preserving=False, **kwargs):

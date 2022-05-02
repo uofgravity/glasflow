@@ -10,11 +10,45 @@ import torch
 
 
 @pytest.mark.parametrize(
-    "kwargs", [{}, dict(linear_transform="svd"), dict(n_conditional_inputs=1)]
+    "kwargs",
+    [
+        {},
+        dict(linear_transform="svd"),
+        dict(n_conditional_inputs=1),
+        dict(mask=[[-1, 1], [1, -1]]),
+    ]
 )
 def test_coupling_flow_init(kwargs):
     """Test the init method"""
     CouplingFlow(AffineCouplingTransform, 2, 2, **kwargs)
+
+
+@pytest.mark.integration_test
+def test_coupling_flow_w_mask():
+    """Test the forward pass with a custom mask"""
+    n_inputs = 2
+    flow = CouplingFlow(
+        AffineCouplingTransform,
+        n_inputs,
+        2,
+        mask=[[-1, 1], [1, -1]]
+    )
+
+    x = torch.randn(10, 2)
+
+    z, log_jac = flow.forward(x)
+    z = z.detach().numpy()
+    log_jac = log_jac.detach().numpy()
+    assert z.shape == (10, 2)
+    assert log_jac.shape == (10,)
+
+    log_prob = flow.log_prob(x)
+    log_prob = log_prob.detach().numpy()
+    assert log_prob.shape == (10,)
+
+    x = flow.sample(10)
+    x = x.detach().numpy()
+    assert x.shape == (10, 2)
 
 
 @pytest.mark.integration_test

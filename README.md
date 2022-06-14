@@ -10,8 +10,18 @@ To install from github:
 pip install git+https://github.com/igr-ml/glasflow.git
 ```
 
+## nflows
+
+glasflow uses a fork of nflows which is included as submodule in glasflow and can used imported as follows:
+
+```python
+import glasflow.nflows as nflows
+```
+
+It contains various bugfixes which, as of writing this, are not included in current release of `nflows`.
+
 ## PyTorch
-By default the version of PyTroch will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: https://pytorch.org/.
+By default the version of PyTorch will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: https://pytorch.org/.
 
 ## Usage
 

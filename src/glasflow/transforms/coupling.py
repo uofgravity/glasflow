@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Alternative implementations of coupling transforms"""
-from nflows.transforms.coupling import (
+from glasflow.nflows.transforms.coupling import (
     AffineCouplingTransform as BaseAffineCouplingTransform,
 )
 import torch.nn.functional as F

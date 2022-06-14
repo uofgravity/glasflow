@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from nflows.nn.nets import ResidualNet
-from nflows import transforms
-from nflows.transforms.coupling import CouplingTransform
+from glasflow.nflows.nn.nets import ResidualNet
+from glasflow.nflows import transforms
+from glasflow.nflows.transforms.coupling import CouplingTransform
 import torch
 import torch.nn.functional as F
 
@@ -126,7 +126,7 @@ class CouplingFlow(Flow):
                 transforms_list.append(transforms.BatchNorm(n_inputs))
 
         if distribution is None:
-            from nflows.distributions import StandardNormal
+            from glasflow.nflows.distributions import StandardNormal
 
             distribution = StandardNormal([n_inputs])
 

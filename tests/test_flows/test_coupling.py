@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+
 from glasflow.flows.coupling import CouplingFlow
-from nflows.transforms import AffineCouplingTransform
+from glasflow.nflows.transforms import AffineCouplingTransform
 import torch
 
 import pytest

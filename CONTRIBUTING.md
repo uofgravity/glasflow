@@ -6,8 +6,12 @@ To install `glasflow` and contribute clone the repo and install the additional d
 
 ```console
 $ cd glasflow
-$ pip install -e .[dev]
+$ pip install .[dev]
 ```
+
+**Note:** Make sure the submodules are update, see the [git documentation on submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for details.
+
+**Note:** because of a long-standing bug in `setuptools` ([#230](https://github.com/pypa/setuptools/issues/230)), editable installs (`pip install -e`) are not supported.
 
 ## Format checking
 

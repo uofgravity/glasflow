@@ -11,7 +11,7 @@ $ pip install .[dev]
 
 **Note:** Make sure the submodules are update, see the [git documentation on submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for details.
 
-**Note:** because of a long-standing bug in `setuptools` ([#230](https://github.com/pypa/setuptools/issues/230)), editable installs (`pip install -e`) are not supported.
+**Note:** because of a long-standing bug in `setuptools` ([#230](https://github.com/pypa/setuptools/issues/230)), editable installs (`pip install -e`) are not supported by older versions of `setuptools`. Editable installs require `setuptools>=64.0.3`.
 
 ## Format checking
 

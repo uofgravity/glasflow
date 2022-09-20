@@ -16,6 +16,7 @@ def test_coupling_nsf_init(num_bins):
 
 
 @pytest.mark.integration_test
+@pytest.mark.flaky(reruns=5)
 def test_coupling_nsf_forward_inverse():
     """Make sure the flow is invertible"""
     x = torch.randn(10, 2)

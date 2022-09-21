@@ -44,7 +44,7 @@ jobs:
         pip install nflows
     - name: Set nflows version
       run: |
-        echo "GLASFLOW_USE_NFLOWS=${{ matrix.use-nflows }}" >> $env:GITHUB_ENV
+        echo "GLASFLOW_USE_NFLOWS=${{ matrix.use-nflows }}" >> $GITHUB_ENV
     - name: Print environment variables
       run: |
         env

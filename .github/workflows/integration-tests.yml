@@ -5,29 +5,38 @@ on:
     branches: [ main, release* ]
   pull_request:
     branches: [ main, release* ]
+  schedule:
+    # Run tests at 7:00 UTC everyday
+    - cron: '0 7 * * *'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   integration-tests:
-    name: Build and run integration tests
-    runs-on: ubuntu-latest
+    name: Python ${{ matrix.python-version }} (${{ matrix.os }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macOS, Ubuntu, Windows]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+    runs-on: ${{ matrix.os }}-latest
 
     steps:
-    - name: Checkout repository and submodules
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - name: Set up Python 3.8
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install .[dev]
-    - name: Run (quick) integration tests
+        pip install -e .[dev]
+    - name: Run integration tests (fast)
       run: |
-        pytest -v tests/ -m "integration_test"
-    # - name: Run slow integration tests
-    #  run: |
-    #    pytest -v tests/ -m "slow_integration_test"
+        python -m pytest -m "integration_test"
+    - name: Run integration tests (slow)
+      run: |
+        python -m pytest -m "slow_integration_test"

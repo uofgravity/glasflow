@@ -9,7 +9,28 @@ Code is hosted at: https://github.com/igr-ml/glasflow
 
 nflows: https://github.com/bayesiains/nflows
 """
-from .flows import (
+import os
+
+USE_NFLOWS = os.environ.get("GLASFLOW_USE_NFLOWS", "False").lower() in [
+    "true",
+    "1",
+]
+if USE_NFLOWS:
+    print("glasflow is using `nflows` instead of the included submodule")
+    import sys
+
+    try:
+        import nflows
+    except ModuleNotFoundError:
+        raise RuntimeError(
+            "nflows is not installed. Set the environment variable "
+            "`GLASFLOW_USE_NFLOWS=False` to use the included fork of nflows."
+        )
+    sys.modules["glasflow.nflows"] = nflows
+else:
+    print("glasflow is using the included fork of `nflows`")
+
+from .flows import (  # noqa
     CouplingNSF,
     RealNVP,
 )

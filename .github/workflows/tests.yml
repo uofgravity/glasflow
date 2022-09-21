@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   unittests:
-    name: Python ${{ matrix.python-version }} nflows=${{ matrix.use-nflows }} (${{ matrix.os }})
+    name: Python ${{ matrix.python-version }} (nflows=${{ matrix.use-nflows }}) (${{ matrix.os }})
 
     strategy:
       fail-fast: false

@@ -15,13 +15,14 @@ concurrency:
 
 jobs:
   integration-tests:
-    name: Python ${{ matrix.python-version }} nflows=${{ matrix.use-nflows }} (${{ matrix.os }})
+    name: Python ${{ matrix.python-version }} (nflows=${{ matrix.use-nflows }}) (${{ matrix.os }})
 
     strategy:
       fail-fast: false
       matrix:
         os: [macOS, Ubuntu, Windows]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
+        use-nflows: [True, False]
     runs-on: ${{ matrix.os }}-latest
 
     steps:

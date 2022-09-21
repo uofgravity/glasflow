@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   integration-tests:
-    name: Python ${{ matrix.python-version }} (${{ matrix.os }})
+    name: Python ${{ matrix.python-version }} nflows=${{ matrix.use-nflows }} (${{ matrix.os }})
 
     strategy:
       fail-fast: false
@@ -37,6 +37,16 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .[dev]
+    - name: Optionally install nflows
+      if: ${{ matrix.use-nflows }}
+      run: |
+        pip install nflows
+    - name: Set nflows version
+      run: |
+        echo "GLASFLOW_USE_NFLOWS=${{ matrix.use-nflows }}" >> $env:GITHUB_ENV
+    - name: Print environment variables
+      run: |
+        env
     - name: Run integration tests (fast)
       run: |
         python -m pytest -m "integration_test"

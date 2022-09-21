@@ -69,6 +69,10 @@ except ImportError:  # for Python < 3.8
 
 try:
     __version__ = version(__name__)
+    if USE_NFLOWS:
+        __version__ += "+nflows-ext"
+    else:
+        __version__ += "+nflows-int"
 except PackageNotFoundError:
     # package is not installed
     pass

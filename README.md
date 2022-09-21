@@ -57,3 +57,7 @@ After setting this variable `glasflow.nflows` will point to the version of nflow
 ## Contributing
 
 Pull requests are welcome. You can review the contribution guidelines [here](https://github.com/igr-ml/glasflow/blob/main/CONTRIBUTING.md). For major changes, please open an issue first to discuss what you would like to change.
+
+## Citing
+
+If you use glasflow in your work we recommend you also cite nflows following the guidelines in the [nflows readme](https://github.com/igr-ml/nflows#citing-nflows).

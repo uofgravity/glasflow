@@ -3,8 +3,6 @@
 from glasflow.flows.coupling import CouplingFlow
 from glasflow.nflows.transforms.coupling import AffineCouplingTransform
 import numpy as np
-import torch
-
 import pytest
 import torch
 
@@ -16,7 +14,7 @@ import torch
         dict(linear_transform="svd"),
         dict(n_conditional_inputs=1),
         dict(mask=[[-1, 1], [1, -1]]),
-    ]
+    ],
 )
 def test_coupling_flow_init(kwargs):
     """Test the init method"""
@@ -28,10 +26,7 @@ def test_coupling_flow_w_mask():
     """Test the forward pass with a custom mask"""
     n_inputs = 2
     flow = CouplingFlow(
-        AffineCouplingTransform,
-        n_inputs,
-        2,
-        mask=[[-1, 1], [1, -1]]
+        AffineCouplingTransform, n_inputs, 2, mask=[[-1, 1], [1, -1]]
     )
 
     x = torch.randn(10, 2)
@@ -119,13 +114,13 @@ def test_coupling_flow_sample_and_log_prob_w_conditional():
         (None, torch.tensor([[-1, 1], [1, -1], [-1, 1]]).int()),
         (
             torch.tensor([-1, 1]),
-            torch.tensor([[-1, 1], [1, -1], [-1, 1]]).int()
+            torch.tensor([[-1, 1], [1, -1], [-1, 1]]).int(),
         ),
         ([-1, 1], torch.tensor([[-1, 1], [1, -1], [-1, 1]]).int()),
         (np.array([-1, 1]), torch.tensor([[-1, 1], [1, -1], [-1, 1]]).int()),
         (
             torch.tensor([[1, -1], [1, -1], [-1, 1]]),
-            torch.tensor([[1, -1], [1, -1], [-1, 1]]).int()
+            torch.tensor([[1, -1], [1, -1], [-1, 1]]).int(),
         ),
     ],
 )

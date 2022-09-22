@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from torch._C import Value
 from glasflow.transforms.coupling import AffineCouplingTransform
 import pytest
 import torch
@@ -15,7 +14,7 @@ def affine_transform():
 
 
 @pytest.mark.parametrize("scaling_method", ["nflows", "wide"])
-@patch("nflows.transforms.coupling.AffineCouplingTransform.__init__")
+@patch("glasflow.nflows.transforms.coupling.AffineCouplingTransform.__init__")
 def test_affine_init(mock, affine_transform, scaling_method):
     """Assert the init method pass inputs to the parent class"""
     mask = [1, -1]
@@ -32,7 +31,7 @@ def test_affine_init(mock, affine_transform, scaling_method):
     assert affine_transform.scaling_method == scaling_method
 
 
-@patch("nflows.transforms.coupling.AffineCouplingTransform.__init__")
+@patch("glasflow.nflows.transforms.coupling.AffineCouplingTransform.__init__")
 def test_affine_init_invalid_scaling(mock, affine_transform):
     """Assert an error is raised if an invalid scaling method is passed"""
     mask = [1, -1]
@@ -67,7 +66,7 @@ def test_scale_and_shift_nflows(affine_transform):
     params = "params"
     affine_transform.scaling_method = "nflows"
     with patch(
-        "nflows.transforms.coupling.AffineCouplingTransform._scale_and_shift"
+        "glasflow.nflows.transforms.coupling.AffineCouplingTransform._scale_and_shift"
     ) as mock:
         AffineCouplingTransform._scale_and_shift(affine_transform, params)
     mock.assert_called_once_with(params)

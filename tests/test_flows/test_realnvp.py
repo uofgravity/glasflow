@@ -12,6 +12,7 @@ def test_coupling_flow_init(volume_preserving):
 
 
 @pytest.mark.integration_test
+@pytest.mark.flaky(reruns=5)
 def test_realnvp_wide_scale():
     """Test RealNVP with the 'wide' scaling method"""
     flow = RealNVP(2, 2, scaling_method="wide")

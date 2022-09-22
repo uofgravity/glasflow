@@ -2,7 +2,7 @@
 """
 Implementation of RealNVP.
 """
-from nflows.transforms.coupling import (
+from glasflow.nflows.transforms.coupling import (
     AdditiveCouplingTransform,
 )
 from .coupling import CouplingFlow

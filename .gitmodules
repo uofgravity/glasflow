@@ -1,0 +1,3 @@
+[submodule "submodules/nflows"]
+	path = submodules/nflows
+	url = https://github.com/igr-ml/nflows.git

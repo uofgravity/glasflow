@@ -36,15 +36,18 @@ class CouplingFlow(Flow):
     activation : function
         Activation function to use. Defaults to ReLU
     dropout_probability : float
-        Ammount of dropout to apply. 0 being no dropout and 1 being drop
+        Amount of dropout to apply. 0 being no dropout and 1 being drop
         all connections
     linear_transform : str, {'permutation', 'lu', 'svd', None}
         Linear transform to apply before each coupling transform.
-    distribution : :obj:`nflows.distribution.Distribtion`
+    distribution : :obj:`nflows.distribution.Distribution`
         Distribution object to use for that latent spae. If None, an n-d
         Gaussian is used.
+    mask : Union[torch.Tensor, list, numpy.ndarray]
+        Mask or array of masks to use to construct the flow. If not specified,
+        an alternating binary mask will be used.
     kwargs :
-        Keyword arguments passed to `transform_class` when is it initialsed.
+        Keyword arguments passed to `transform_class` when is it initialised.
     """
 
     def __init__(
@@ -61,6 +64,7 @@ class CouplingFlow(Flow):
         dropout_probability=0.0,
         linear_transform=None,
         distribution=None,
+        mask=None,
         **kwargs,
     ):
 
@@ -112,16 +116,14 @@ class CouplingFlow(Flow):
                 mask=mask, transform_net_create_fn=create_net, **kwargs
             )
 
-        mask = torch.ones(n_inputs)
-        mask[::2] = -1
+        mask = self.validate_mask(mask, n_inputs, n_transforms)
 
         transforms_list = []
 
-        for _ in range(n_transforms):
+        for i in range(n_transforms):
             if linear_transform is not None:
                 transforms_list.append(create_linear_transform())
-            transforms_list.append(create_transform(mask))
-            mask *= -1
+            transforms_list.append(create_transform(mask[i]))
             if batch_norm_between_transforms:
                 transforms_list.append(transforms.BatchNorm(n_inputs))
 
@@ -134,3 +136,34 @@ class CouplingFlow(Flow):
             transform=transforms.CompositeTransform(transforms_list),
             distribution=distribution,
         )
+
+    @staticmethod
+    def validate_mask(mask, n_inputs, n_transforms):
+        """Validate the mask.
+
+        Returns
+        -------
+        torch.Tensor
+            A tensor of shape (n_transforms, n_inputs) with the mask for each
+            transform.
+        """
+        if mask is None:
+            mask = torch.ones(n_inputs).int()
+            mask[::2] = -1
+        else:
+            if not isinstance(mask, torch.Tensor):
+                mask = torch.tensor(mask)
+            if not mask.shape[-1] == n_inputs:
+                raise ValueError('Mask does not match number of inputs')
+            if mask.dim() == 2 and not mask.shape[0] == n_transforms:
+                raise ValueError('Mask does not match number of transforms')
+            mask = mask.int()
+
+        # If mask is 1-d make a complete set of masks
+        if mask.dim() == 1:
+            mask_array = torch.empty([n_transforms, n_inputs]).int()
+            for i in range(n_transforms):
+                mask_array[i] = mask
+                mask *= -1
+            mask = mask_array
+        return mask

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0]
+
 ### Added
 
 - Add `RealNVP`
@@ -15,3 +17,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add option for user-defined masks in coupling-based flows
 
 [Unreleased]: https://github.com/igr-ml/glasflow/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/igr-ml/glasflow/releases/tag/v0.1.0

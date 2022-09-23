@@ -154,9 +154,9 @@ class CouplingFlow(Flow):
             if not isinstance(mask, torch.Tensor):
                 mask = torch.tensor(mask)
             if not mask.shape[-1] == n_inputs:
-                raise ValueError('Mask does not match number of inputs')
+                raise ValueError("Mask does not match number of inputs")
             if mask.dim() == 2 and not mask.shape[0] == n_transforms:
-                raise ValueError('Mask does not match number of transforms')
+                raise ValueError("Mask does not match number of transforms")
             mask = mask.int()
 
         # If mask is 1-d make a complete set of masks

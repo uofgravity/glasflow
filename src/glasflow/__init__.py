@@ -41,7 +41,7 @@ USE_NFLOWS = os.environ.get("GLASFLOW_USE_NFLOWS", "False").lower() in [
     "1",
 ]
 if USE_NFLOWS:
-    print("glasflow is using `nflows` instead of the included submodule")
+    print("glasflow is using an externally installed version of nflows")
     if not NFLOWS_INSTALLED:
         raise RuntimeError(
             "nflows is not installed. Set the environment variable "
@@ -55,7 +55,7 @@ if USE_NFLOWS:
     # the nflows installation
     _import_submodules(nflows)
 else:
-    print("glasflow is using the included fork of `nflows`")
+    print("glasflow is using its own internal version of nflows")
 
 from .flows import (  # noqa
     CouplingNSF,

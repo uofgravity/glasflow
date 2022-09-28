@@ -1,3 +1,7 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7108558.svg)](https://doi.org/10.5281/zenodo.7108558)
+[![PyPI](https://img.shields.io/pypi/v/glasflow)](https://pypi.org/project/glasflow/)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/glasflow.svg)](https://anaconda.org/conda-forge/glasflow)
+
 # Glasflow
 
 glasflow is a Python library containing a collection of [Normalizing flows](https://arxiv.org/abs/1912.02762) using [PyTorch](https://pytorch.org). It builds upon [nflows](https://github.com/bayesiains/nflows).

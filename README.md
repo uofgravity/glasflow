@@ -4,15 +4,21 @@ glasflow is a Python library containing a collection of [Normalizing flows](http
 
 ## Installation
 
-To install from GitHub:
+glasflow is available to install via `pip`:
 
 ```shell
-$ pip install git+https://github.com/igr-ml/glasflow.git
+pip install glasflow
+```
+
+or via `conda`:
+
+```shell
+conda install glasflow -c conda-forge
 ```
 
 ## PyTorch
 
-By default the version of PyTorch will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: https://pytorch.org/.
+By default the version of PyTorch installed by `pip` or `conda` will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: https://pytorch.org/.
 
 ## Usage
 

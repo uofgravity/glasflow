@@ -25,9 +25,9 @@ By default the version of PyTorch installed by `pip` or `conda` will not necessa
 To define a RealNVP flow:
 
 ```python
-from glasflow.flows import RealNVP
+from glasflow import RealNVP
 
-# define RealNVP flow. Change hyperparameters as nessesary.
+# define RealNVP flow. Change hyperparameters as necessary.
 flow = RealNVP(
     n_inputs=2,
     n_transforms=5,

@@ -66,4 +66,4 @@ Pull requests are welcome. You can review the contribution guidelines [here](htt
 
 ## Citing
 
-If you use glasflow in your work we recommend you also cite nflows following the guidelines in the [nflows readme](https://github.com/igr-ml/nflows#citing-nflows).
+If you use glasflow in your work please cite [our DOI](https://doi.org/10.5281/zenodo.7108558). We also recommend you also cite nflows following the guidelines in the [nflows readme](https://github.com/igr-ml/nflows#citing-nflows).

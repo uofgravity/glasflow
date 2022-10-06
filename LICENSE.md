@@ -2,7 +2,7 @@
 
 MIT License
 
-Copyright (c) 2021-2022 Jordan McGinn, Federico Stachurski, Michael J. Williams
+Copyright (c) 2021-2022 Jordan McGinn, Federico Stachurski, John Veitch, Michael J. Williams
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

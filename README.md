@@ -1,27 +1,39 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7108558.svg)](https://doi.org/10.5281/zenodo.7108558)
+[![PyPI](https://img.shields.io/pypi/v/glasflow)](https://pypi.org/project/glasflow/)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/glasflow.svg)](https://anaconda.org/conda-forge/glasflow)
+
 # Glasflow
 
 glasflow is a Python library containing a collection of [Normalizing flows](https://arxiv.org/abs/1912.02762) using [PyTorch](https://pytorch.org). It builds upon [nflows](https://github.com/bayesiains/nflows).
 
 ## Installation
 
-To install from GitHub:
+glasflow is available to install via `pip`:
 
 ```shell
-$ pip install git+https://github.com/igr-ml/glasflow.git
+pip install glasflow
+```
+
+or via `conda`:
+
+```shell
+conda install glasflow -c conda-forge
 ```
 
 ## PyTorch
 
-By default the version of PyTorch will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: https://pytorch.org/.
+**Important:** `nessai` supports using CUDA devices but it is not a requirement and in most uses cases it provides little to no benefit.
+
+By default the version of PyTorch installed by `pip` or `conda` will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: <https://pytorch.org/>.
 
 ## Usage
 
 To define a RealNVP flow:
 
 ```python
-from glasflow.flows import RealNVP
+from glasflow import RealNVP
 
-# define RealNVP flow. Change hyperparameters as nessesary.
+# define RealNVP flow. Change hyperparameters as necessary.
 flow = RealNVP(
     n_inputs=2,
     n_transforms=5,
@@ -60,4 +72,4 @@ Pull requests are welcome. You can review the contribution guidelines [here](htt
 
 ## Citing
 
-If you use glasflow in your work we recommend you also cite nflows following the guidelines in the [nflows readme](https://github.com/igr-ml/nflows#citing-nflows).
+If you use glasflow in your work please cite [our DOI](https://doi.org/10.5281/zenodo.7108558). We also recommend you also cite nflows following the guidelines in the [nflows readme](https://github.com/igr-ml/nflows#citing-nflows).

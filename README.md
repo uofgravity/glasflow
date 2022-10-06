@@ -22,7 +22,9 @@ conda install glasflow -c conda-forge
 
 ## PyTorch
 
-By default the version of PyTorch installed by `pip` or `conda` will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: https://pytorch.org/.
+**Important:** `nessai` supports using CUDA devices but it is not a requirement and in most uses cases it provides little to no benefit.
+
+By default the version of PyTorch installed by `pip` or `conda` will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: <https://pytorch.org/>.
 
 ## Usage
 

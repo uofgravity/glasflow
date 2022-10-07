@@ -34,7 +34,7 @@ class MLP(nn.Module):
     Raises
     ------
     ValueError
-        Id the
+        If the number of neurons per layers is empty.
     TypeError
         If :code:`activate_ouput` is an invalid type.
     """

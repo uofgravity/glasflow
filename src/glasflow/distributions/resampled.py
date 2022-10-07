@@ -1,8 +1,9 @@
 """Distributions that include Learned Accept/Reject Sampling (LARS)."""
-from typing import Callable
+from typing import Callable, Union
 
 from glasflow.nflows.distributions import Distribution
 from glasflow.nflows.utils import torchutils
+from glasflow.utils import get_torch_size
 import numpy as np
 import torch
 from torch import nn
@@ -36,14 +37,14 @@ class ResampledGaussian(Distribution):
 
     def __init__(
         self,
-        shape: tuple,
+        shape: Union[int, tuple],
         acceptance_fn: Callable,
         eps: float = 0.05,
         truncation: int = 100,
         trainable: bool = False,
     ) -> None:
         super().__init__()
-        self._shape = torch.Size(shape)
+        self._shape = get_torch_size(shape)
         self.truncation = truncation
         self.acceptance_fn = acceptance_fn
         self.eps = eps
@@ -52,15 +53,16 @@ class ResampledGaussian(Distribution):
         self.register_buffer(
             "_log_z",
             torch.tensor(
-                0.5 * np.prod(shape) * np.log(2 * np.pi), dtype=torch.float64
+                0.5 * np.prod(self._shape) * np.log(2 * np.pi),
+                dtype=torch.float64,
             ),
         )
         if trainable:
-            self.loc = nn.Parameter(torch.zeros(1, *shape))
-            self.log_scale = nn.Parameter(torch.zeros(1, *shape))
+            self.loc = nn.Parameter(torch.zeros(1, *self._shape))
+            self.log_scale = nn.Parameter(torch.zeros(1, *self._shape))
         else:
-            self.register_buffer("loc", torch.zeros(1, *shape))
-            self.register_buffer("log_scale", torch.zeros(1, *shape))
+            self.register_buffer("loc", torch.zeros(1, *self._shape))
+            self.register_buffer("log_scale", torch.zeros(1, *self._shape))
 
     def _log_prob_gaussian(self, norm_inputs: torch.tensor) -> torch.tensor:
         """Base Gaussian log probability"""

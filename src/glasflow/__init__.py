@@ -5,7 +5,7 @@ glasflow
 
 Implementations of normalising flows in PyTorch based on nflows.
 
-Code is hosted at: https://github.com/igr-ml/glasflow
+Code is hosted at: https://github.com/uofgravity/glasflow
 
 nflows: https://github.com/bayesiains/nflows
 """

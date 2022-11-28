@@ -42,7 +42,7 @@ flow = RealNVP(
 )
 ```
 
-Please see [glasflow/examples](https://github.com/igr-ml/glasflow/tree/main/examples) for a typical training regime example.
+Please see [glasflow/examples](https://github.com/uofgravity/glasflow/tree/main/examples) for a typical training regime example.
 
 ## nflows
 
@@ -68,8 +68,8 @@ After setting this variable `glasflow.nflows` will point to the version of nflow
 
 ## Contributing
 
-Pull requests are welcome. You can review the contribution guidelines [here](https://github.com/igr-ml/glasflow/blob/main/CONTRIBUTING.md). For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. You can review the contribution guidelines [here](https://github.com/uofgravity/glasflow/blob/main/CONTRIBUTING.md). For major changes, please open an issue first to discuss what you would like to change.
 
 ## Citing
 
-If you use glasflow in your work please cite [our DOI](https://doi.org/10.5281/zenodo.7108558). We also recommend you also cite nflows following the guidelines in the [nflows readme](https://github.com/igr-ml/nflows#citing-nflows).
+If you use glasflow in your work please cite [our DOI](https://doi.org/10.5281/zenodo.7108558). We also recommend you also cite nflows following the guidelines in the [nflows readme](https://github.com/uofgravity/nflows#citing-nflows).

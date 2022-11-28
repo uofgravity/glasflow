@@ -24,7 +24,7 @@ SOFTWARE.
 
 # nflows 
 
-This software includes a fork of [nflows](https://github.com/igr-ml/nflows)
+This software includes a fork of [nflows](https://github.com/uofgravity/nflows)
 which is licensed under an MIT License:
 
 MIT License

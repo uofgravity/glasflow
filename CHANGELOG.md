@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- Add resampled Gaussian distribution based on [this paper](https://proceedings.mlr.press/v151/stimper22a).
-
 ## [0.1.2]
 
 Another patch to fix CI not uploading release to PyPI

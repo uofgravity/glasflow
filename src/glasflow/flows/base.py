@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Base class for all normalising flows."""
-from torch.nn import Module
+from glasflow.nflows.distributions import Distribution
 
 
-class Flow(Module):
+class Flow(Distribution):
     """
     Base class for flow objects implemented according to the outline in nflows.
 

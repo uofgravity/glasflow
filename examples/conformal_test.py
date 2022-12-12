@@ -43,12 +43,12 @@ class SphereCEFlow(ConformalFlow):
             conformal.SpecialConformal(n, m),
             conformal.Pad(n, m),
         ])
-        # base_flow = RealNVP(
-        #     n_inputs=m,
-        #     n_transforms=n_transforms,
-        #     n_neurons=n_neurons,
-        # )
-        base_flow = distributions.StandardNormal([2])
+        base_flow = RealNVP(
+             n_inputs=m,
+             n_transforms=n_transforms,
+             n_neurons=n_neurons,
+         )
+        #base_flow = distributions.StandardNormal([2])
 
         super().__init__(conf_transform, distribution=base_flow)
 
@@ -70,79 +70,15 @@ class SphereCEFlow(ConformalFlow):
 from scipy.stats import halfnorm
 
 dist = halfnorm()
-x = halfnorm.rvs(size=(1000, 2))
+x = halfnorm.rvs(size=(500, 2))
 
-plt.scatter(x[: 0], x[:, 1])
+plt.scatter(x[:, 0], x[:, 1])
 plt.show()
 
 sph_data = torch.rand(1000, 2) + 100
 sph_data = torch.FloatTensor(x)
 
-
-# In[4]:
-
-
-# fig = plt.figure()
-# ax = fig.add_subplot(projection='3d')
-# ax.set_xlim([-1,1])
-# ax.set_ylim([-1,1])
-# ax.set_zlim([-1,1])
-# ax.scatter(x,y,z)
-# plt.show()
-
-
-# In[5]:
-
-
-# from glasflow.flows.conformal import SphereCEFlow
-
-
-# In[6]:
-
-
-spflow = SphereCEFlow(n_transforms=2)
-
-
-# In[7]:
-
-
-recon = spflow.reconstruct(sph_data)
-
-
-# In[8]:
-
-
-x,logJ = spflow.forward(sph_data)
-
-
-# In[9]:
-
-
-sph_data
-
-
-# In[10]:
-
-
-spflow
-
-
-# In[11]:
-
-
-pad = spflow._transform._transforms[3]
-
-
-# In[12]:
-
-
-pad(sph_data)[0] - sph_data[:,:2]
-
-
-# In[13]:
-
-
-spflow._transform._transforms[3]
+spflow = SphereCEFlow(n_transforms=4)
 
 print("Init")
 
@@ -152,18 +88,15 @@ with torch.no_grad():
     sample_recons, _ =  spflow._transform.inverse(sample_mid_latent)
 
 
-# In[14]:
-
-
 import torch.optim as opt
 from torch.utils.data import DataLoader
 batch_size = 1000
-optim = opt.Adam(spflow.parameters(), lr=0.1)
+optim = opt.Adam(spflow.parameters(), lr=0.01)
 scheduler = opt.lr_scheduler.MultiStepLR(optim, milestones=[40], gamma=0.5)
-
+NTRAIN = 1000
 def schedule():
     '''Yield epoch weights for likelihood and recon loss, respectively'''
-    for _ in range(45):
+    for _ in range(NTRAIN):
         yield 10, 1
         scheduler.step()
         
@@ -210,10 +143,11 @@ for epoch, (alpha, beta) in enumerate(schedule()):
         progress_bar.set_description(f'[E{epoch} B{batch}] | loss: {loss: 6.2f} | LL: {log_likelihood:6.2f} '
                                      f'| recon: {reconstruction_error:6.5f} ')
 
-        zz = mid_latent.detach()
+        #zz = mid_latent.detach()
+        zz = spflow._distribution(mid_latent)[0].detach()
         ax.clear()
-        ax.scatter(zz[:, 0], zz[:, 1])
-        plt.draw()
+        ax.plot(zz[:, 0], zz[:, 1],'x')
+        #plt.draw()
         plt.pause(0.01)
 
 # with torch.no_grad():

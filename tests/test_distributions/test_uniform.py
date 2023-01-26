@@ -23,13 +23,17 @@ def test_init(low, high):
 
 def test_init_invalid_shapes():
     """Assert an error is raised if the shapes are different"""
-    with pytest.raises(ValueError, match=r"low and high are not the same shape"):
+    with pytest.raises(
+        ValueError, match=r"low and high are not the same shape"
+    ):
         MultivariateUniform(torch.tensor(0), torch.tensor([1, 1]))
 
 
 def test_init_invalid_bounds():
     """Assert an error is raised if low !< high"""
-    with pytest.raises(ValueError, match=r"low has elements that are larger than high"):
+    with pytest.raises(
+        ValueError, match=r"low has elements that are larger than high"
+    ):
         MultivariateUniform(torch.tensor([1, 0]), torch.tensor([1, 1]))
 
 
@@ -41,9 +45,9 @@ def test_init_invalid_bounds():
         (torch.tensor([-1.0, 0.5]), -torch.tensor(torch.inf)),
         (
             torch.tensor([[-1.0, 0.5], [1.0, 1.0]]),
-            torch.log(torch.tensor([0.0, 1.0 / 4.0]))
+            torch.log(torch.tensor([0.0, 1.0 / 4.0])),
         ),
-    ]
+    ],
 )
 def test_log_prob(dist, inputs, target):
     """Assert log prob returns the correct value"""
@@ -74,11 +78,17 @@ def test_sample(dist, num_samples):
 
 def test_context_error_log_prob(dist):
     """Assert an error is raised if log_prob is called and is not None."""
-    with pytest.raises(NotImplementedError, match="Context is not supported by MultidimensionalUniform!"):
+    with pytest.raises(
+        NotImplementedError,
+        match="Context is not supported by MultidimensionalUniform!",
+    ):
         MultivariateUniform._log_prob(dist, torch.ones(1), torch.ones(1))
 
 
 def test_context_error_sample(dist):
     """Assert an error is raised if sample is called and context is not None."""
-    with pytest.raises(NotImplementedError, match="Context is not supported by MultidimensionalUniform!"):
+    with pytest.raises(
+        NotImplementedError,
+        match="Context is not supported by MultidimensionalUniform!",
+    ):
         MultivariateUniform._sample(dist, 10, torch.ones(1))

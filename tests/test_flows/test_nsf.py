@@ -2,17 +2,51 @@
 """
 Tests for neural spline flows.
 """
+from unittest.mock import MagicMock, patch
+
 import numpy as np
 import pytest
 import torch
 
 from glasflow.flows import CouplingNSF
+from glasflow.distributions import MultivariateUniform
 
 
 @pytest.mark.parametrize("num_bins", [4, 10])
 def test_coupling_nsf_init(num_bins):
     """Test the initialise method"""
     CouplingNSF(2, 2, num_bins=num_bins)
+
+
+def test_init_uniform_distribution():
+    """Assert a uniform distribution is created and used"""
+    expected_low = torch.zeros(2)
+    expected_high = torch.ones(2)
+    dist = MagicMock(spec=MultivariateUniform)
+
+    with patch(
+        "glasflow.distributions.MultivariateUniform", return_value=dist
+    ) as mock_dist, patch(
+        "glasflow.flows.nsf.CouplingFlow.__init__"
+    ) as mock_init:
+
+        CouplingNSF(
+            n_inputs=2,
+            n_transforms=2,
+            distribution="uniform",
+            tail_bound=10.0,
+            tail_type="linear",
+        )
+
+    dist_kwargs = mock_dist.call_args[1]
+    assert torch.equal(dist_kwargs["low"], expected_low)
+    assert torch.equal(dist_kwargs["high"], expected_high)
+
+    kwargs = mock_init.call_args[1]
+    assert kwargs["tail_bound"] == 1.0
+    assert kwargs["tails"] is None
+    assert kwargs["distribution"] is dist
+    assert kwargs["batch_norm_between_transforms"] is False
 
 
 @pytest.mark.integration_test

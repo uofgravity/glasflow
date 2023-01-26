@@ -27,6 +27,9 @@ class MultivariateUniform(Distribution):
             Upper range (exclusive).
         """
         super().__init__()
+
+        low, high = map(torch.as_tensor, [low, high])
+
         if low.shape != high.shape:
             raise ValueError("low and high are not of the same size")
 

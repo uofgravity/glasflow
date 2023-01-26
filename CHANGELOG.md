@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a multi-layer perceptron (`glasflow.nets.mlp.MLP`).
 - Add a resampled Gaussian distribution that uses Learnt Accept/Reject Samples (`glasflow.distributions.resampled.ResampledGaussian`).
 - Add `nessai.utils.get_torch_size`.
+- Add a multivariate uniform distribution (`glasflow.distributions.uniform.MultivariateUniform`)
 
 ## [0.1.2]
 

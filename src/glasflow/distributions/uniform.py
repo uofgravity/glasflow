@@ -31,10 +31,10 @@ class MultivariateUniform(Distribution):
         low, high = map(torch.as_tensor, [low, high])
 
         if low.shape != high.shape:
-            raise ValueError("low and high are not of the same size")
+            raise ValueError("low and high are not the same shape")
 
         if not (low < high).byte().all():
-            raise ValueError("low has elements that are higher than high")
+            raise ValueError("low has elements that are larger than high")
 
         self._shape = low.shape
         self.register_buffer("low", low)

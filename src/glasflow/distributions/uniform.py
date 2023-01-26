@@ -47,7 +47,7 @@ class MultivariateUniform(Distribution):
             )
         lb = self.low.le(inputs).type_as(self.low).prod(-1)
         ub = self.high.gt(inputs).type_as(self.low).prod(-1)
-        return torch.log(lb.mul(ub)) - self._log_prob_value
+        return torch.log(lb.mul(ub)) + self._log_prob_value
 
     def _sample(self, num_samples, context):
         if context is not None:

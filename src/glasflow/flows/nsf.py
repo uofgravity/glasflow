@@ -7,12 +7,16 @@ See: https://arxiv.org/abs/1906.04032
 from glasflow.nflows.transforms.coupling import (
     PiecewiseRationalQuadraticCouplingTransform,
 )
+import torch
 import torch.nn.functional as F
 from .coupling import CouplingFlow
 
 
 class CouplingNSF(CouplingFlow):
     """Implementation of Neural Spline Flows using a coupling transform.
+
+    Supports use of a uniform distribution for the latent space. This
+    automatically disables the tails and sets the bounds to [0, 1).
 
     Parameters
     ----------
@@ -75,6 +79,18 @@ class CouplingNSF(CouplingFlow):
         **kwargs,
     ):
         transform_class = PiecewiseRationalQuadraticCouplingTransform
+
+        if distribution == "uniform":
+            from ..distributions import MultivariateUniform
+
+            tail_bound = 1.0
+            tail_type = None
+            distribution = MultivariateUniform(
+                low=torch.Tensor(n_inputs * [0.0]),
+                high=torch.Tensor(n_inputs * [1.0]),
+            )
+            batch_norm_between_transforms = False
+
         super().__init__(
             transform_class,
             n_inputs,

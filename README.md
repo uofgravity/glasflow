@@ -22,7 +22,7 @@ conda install glasflow -c conda-forge
 
 ## PyTorch
 
-**Important:** `nessai` supports using CUDA devices but it is not a requirement and in most uses cases it provides little to no benefit.
+**Important:** `glasflow` supports using CUDA devices but it is not a requirement and in most uses cases it provides little to no benefit.
 
 By default the version of PyTorch installed by `pip` or `conda` will not necessarily match the drivers on your system, to install a different version with the correct CUDA support see the PyTorch homepage for instructions: <https://pytorch.org/>.
 
@@ -52,7 +52,7 @@ glasflow uses a fork of nflows which is included as submodule in glasflow and ca
 import glasflow.nflows as nflows
 ```
 
-It contains various bugfixes which, as of writing this, are not included in current release of `nflows`.
+It contains various bugfixes which, as of writing this, are not included in a current release of `nflows`.
 
 ### Using standard nflows
 

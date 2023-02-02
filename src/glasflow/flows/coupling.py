@@ -67,7 +67,6 @@ class CouplingFlow(Flow):
         mask=None,
         **kwargs,
     ):
-
         if not issubclass(transform_class, CouplingTransform):
             raise RuntimeError(
                 "Transform class does not inherit from `CouplingTransform`"

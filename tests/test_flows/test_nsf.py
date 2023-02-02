@@ -29,7 +29,6 @@ def test_init_uniform_distribution():
     ) as mock_dist, patch(
         "glasflow.flows.nsf.CouplingFlow.__init__"
     ) as mock_init:
-
         CouplingNSF(
             n_inputs=2,
             n_transforms=2,

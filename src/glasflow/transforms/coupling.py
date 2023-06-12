@@ -22,11 +22,13 @@ class AffineCouplingTransform(BaseAffineCouplingTransform):
         transform_net_create_fn,
         unconditional_transform=None,
         scaling_method="nflows",
+        **kwargs
     ):
         super().__init__(
             mask,
             transform_net_create_fn,
             unconditional_transform=unconditional_transform,
+            **kwargs
         )
 
         if scaling_method in self._allowed_scaling_methods:

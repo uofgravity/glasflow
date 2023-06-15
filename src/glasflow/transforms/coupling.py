@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Alternative implementations of coupling transforms"""
+import logging
 import warnings
 
 from glasflow.nflows.transforms.coupling import (
@@ -8,6 +9,10 @@ from glasflow.nflows.transforms.coupling import (
 import torch.nn.functional as F
 
 from .utils import get_scale_activation
+from .. import USE_NFLOWS
+
+
+logger = logging.getLogger(__name__)
 
 
 class AffineCouplingTransform(BaseAffineCouplingTransform):
@@ -40,10 +45,34 @@ class AffineCouplingTransform(BaseAffineCouplingTransform):
 
         scale_activation = get_scale_activation(scale_activation)
 
-        super().__init__(
-            mask,
-            transform_net_create_fn,
-            unconditional_transform=unconditional_transform,
-            scale_activation=scale_activation,
-            **kwargs,
-        )
+        try:
+            super().__init__(
+                mask,
+                transform_net_create_fn,
+                unconditional_transform=unconditional_transform,
+                scale_activation=scale_activation,
+                **kwargs,
+            )
+        except TypeError as e:
+            if USE_NFLOWS:
+                logger.error(
+                    (
+                        f"Could not initialise transform with with error: {e}. "
+                        "The version of `nflows` being used may not support "
+                        "`scale_activation`. Trying without `scale_activation`."
+                        " Full traceback:"
+                    ),
+                    exc_info=True,
+                )
+                super().__init__(
+                    mask,
+                    transform_net_create_fn,
+                    unconditional_transform=unconditional_transform,
+                    **kwargs,
+                )
+                logger.warning(
+                    "Using affine coupling transform without "
+                    "`scale_activation`, this is not recommended!"
+                )
+            else:
+                raise e

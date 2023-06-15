@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import torch
 from glasflow.flows import RealNVP
+from glasflow.transforms.utils import SCALE_ACTIVATIONS
 
 import pytest
 
@@ -20,5 +21,17 @@ def test_realnvp_wide_scale():
     z, log_j = flow.forward(x)
     x_out, log_j_out = flow.inverse(z)
 
+    assert torch.allclose(x, x_out)
+    assert torch.allclose(log_j, -log_j_out)
+
+
+@pytest.mark.integration_test
+@pytest.mark.flaky(reruns=5)
+@pytest.mark.parametrize("scale_activation", list(SCALE_ACTIVATIONS.keys()))
+def test_realnvp_scale_activation(scale_activation):
+    flow = RealNVP(2, 2, scale_activation=scale_activation)
+    x = torch.randn(10, 2)
+    z, log_j = flow.forward(x)
+    x_out, log_j_out = flow.inverse(z)
     assert torch.allclose(x, x_out)
     assert torch.allclose(log_j, -log_j_out)

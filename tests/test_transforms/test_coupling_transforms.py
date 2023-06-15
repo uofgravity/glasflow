@@ -33,3 +33,20 @@ def test_affine_coupling_init(mock_init, mock_get, affine_transform):
         unconditional_transform=None,
         scale_activation="act_fn",
     )
+
+
+def test_affine_coupling_invalid(affine_transform):
+    """Assert an error is raised that is not `scale_activation`"""
+    mask = [1, -1]
+    create_fn = object()
+
+    with pytest.raises(
+        TypeError,
+        match=r"unexpected keyword argument 'invalid_test'",
+    ):
+        AffineCouplingTransform.__init__(
+            affine_transform,
+            mask,
+            create_fn,
+            invalid_test=None,
+        )

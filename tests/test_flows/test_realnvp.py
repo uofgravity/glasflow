@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import torch
+from glasflow import USE_NFLOWS
 from glasflow.flows import RealNVP
 from glasflow.transforms.utils import SCALE_ACTIVATIONS
 
@@ -35,3 +36,16 @@ def test_realnvp_scale_activation(scale_activation):
     x_out, log_j_out = flow.inverse(z)
     assert torch.allclose(x, x_out)
     assert torch.allclose(log_j, -log_j_out)
+
+
+@pytest.mark.skipif(
+    USE_NFLOWS is False, reason="Test only applies when using nflows"
+)
+def test_affine_coupling_warning_nflows(caplog):
+    """Assert a warning is printed if using `scale_activation` with nflows"""
+    RealNVP(2, 2, scale_activation="log1")
+    assert "Trying without `scale_activation`" in caplog.text
+    assert (
+        "Using affine coupling transform without `scale_activation`"
+        in caplog.text
+    )

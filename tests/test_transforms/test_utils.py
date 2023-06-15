@@ -10,7 +10,7 @@ def test_get_scale_activation_str(name):
 
 def test_get_scale_activation_fn():
     def fn(x):
-        return torch.sigmod(x)
+        return torch.sigmoid(x)
 
     assert get_scale_activation(fn) is fn
 

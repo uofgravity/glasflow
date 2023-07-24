@@ -33,6 +33,30 @@ from glasflow.nflows import transforms
 from glasflow.nflows import distributions
 from glasflow.nflows.transforms.base import Transform
 
+class ShiftModulo(Transform):
+    """
+    Transform dimension by x -> mod(x + k,P)
+    Where P = 2π is the defalt periodicity
+    """
+    def __init__(self, dim: int = 1, P = None):
+        if P is not None:
+            assert len(P) == dim, "P must have one modulus per dimension"
+            self.P = P
+        else:
+            self.P = [2*torch.pi]*dim
+
+        self.k = nn.Parameter(torch.zeros(dim))
+        super().__init__()
+
+    def forward(self, inputs, context = None):
+        outputs = torch.remainder(inputs + k, self.P)
+        return outputs
+    
+    def inverse(self, inputs, context = None):
+        return torch.remainder(inputs - k, self.P)
+    
+                
+    
 
 class SphereEmbedding(Transform):
     """
@@ -58,7 +82,7 @@ class SphereEmbedding(Transform):
         cos = torch.cos
         sin = torch.sin
         in_shape = inputs.shape
-        print('Forward input shape',in_shape)
+        #print('Forward input shape',in_shape)
 
         out_shape = list(in_shape)
         out_shape[-1] = self.dim+1
@@ -76,13 +100,13 @@ class SphereEmbedding(Transform):
     
     def inverse(self, inputs, context=None):
         in_shape = inputs.shape
-        print('Inverse input shape',in_shape)
+        # print('Inverse input shape',in_shape)
         out_shape = list(in_shape)
         out_shape[-1] = self.dim
         assert self.dim == in_shape[-1]-1
         outputs = inputs.new_empty(out_shape)
         r = torch.sqrt(torch.sum(inputs[:,:]**2, axis=-1))
-        print(r.shape)
+        #print(r.shape)
         outputs[:,0] = torch.acos(inputs[:,2]/r)
         outputs[:,1] = torch.atan2( inputs[:,1], inputs[:,0])
         assert torch.all(~torch.isnan(outputs))

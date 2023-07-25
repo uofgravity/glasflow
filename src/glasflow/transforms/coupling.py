@@ -30,7 +30,7 @@ class AffineCouplingTransform(BaseAffineCouplingTransform):
         transform_net_create_fn,
         unconditional_transform=None,
         scaling_method=None,
-        scale_activation=None,
+        scale_activation="log3",
         **kwargs,
     ):
         if scaling_method is not None:

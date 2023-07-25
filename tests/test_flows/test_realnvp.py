@@ -13,6 +13,12 @@ def test_coupling_flow_init(volume_preserving):
     RealNVP(2, 2, volume_preserving=volume_preserving)
 
 
+def test_real_nvp_defaults():
+    flow = RealNVP(2, 2)
+    x = torch.randn(10, 2)
+    flow.forward(x)
+
+
 @pytest.mark.integration_test
 @pytest.mark.flaky(reruns=5)
 def test_realnvp_wide_scale():

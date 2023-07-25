@@ -1,58 +1,78 @@
 # -*- coding: utf-8 -*-
 """Alternative implementations of coupling transforms"""
+import logging
+import warnings
+
 from glasflow.nflows.transforms.coupling import (
     AffineCouplingTransform as BaseAffineCouplingTransform,
 )
 import torch.nn.functional as F
 
+from .utils import get_scale_activation
+from .. import USE_NFLOWS
+
+
+logger = logging.getLogger(__name__)
+
 
 class AffineCouplingTransform(BaseAffineCouplingTransform):
-    """Modified affine coupling transform that has different scaling options.
+    """Modified affine coupling transform that includes predefined scale
+    activations.
 
-    Adds the option to use different ranges for the scaling parameters. In
-    `nflows` the scale is limited to [0, 1.001]. This method adds the `'wide'`
-    option where the scale is limited to [0, 3].
+    Adds the option specify `scale_activation` as a string which is passed to
+    `get_scale_activation` to get the corresponding function. Also supports
+    specifying the function instead of string.
     """
-
-    _allowed_scaling_methods = ["nflows", "wide"]
 
     def __init__(
         self,
         mask,
         transform_net_create_fn,
         unconditional_transform=None,
-        scaling_method="nflows",
+        scaling_method=None,
+        scale_activation="log3",
         **kwargs,
     ):
-        super().__init__(
-            mask,
-            transform_net_create_fn,
-            unconditional_transform=unconditional_transform,
-            **kwargs,
-        )
-
-        if scaling_method in self._allowed_scaling_methods:
-            self.scaling_method = scaling_method
-        else:
-            raise ValueError(
-                f"Invalid scaling method: {scaling_method}. "
-                f"Choose from: {self._allowed_scaling_methods}."
+        if scaling_method is not None:
+            warnings.warn(
+                (
+                    "scaling_method is deprecated and will be removed in a "
+                    "future release. Use `scale_activation` instead."
+                ),
+                FutureWarning,
             )
+            scale_activation = scaling_method
 
-    def _scale_and_shift_wide(self, transform_params):
-        unconstrained_scale = transform_params[
-            :, self.num_transform_features :, ...
-        ]
-        shift = transform_params[:, : self.num_transform_features, ...]
-        scale = (F.softplus(unconstrained_scale) + 1e-3).clamp(0, 3)
-        return scale, shift
+        scale_activation = get_scale_activation(scale_activation)
 
-    def _scale_and_shift(self, transform_params):
-        if self.scaling_method == "nflows":
-            return super()._scale_and_shift(transform_params)
-        elif self.scaling_method == "wide":
-            return self._scale_and_shift_wide(transform_params)
-        else:
-            raise RuntimeError(
-                f"Unknown scaling method: {self.scaling_method}"
+        try:
+            super().__init__(
+                mask,
+                transform_net_create_fn,
+                unconditional_transform=unconditional_transform,
+                scale_activation=scale_activation,
+                **kwargs,
             )
+        except TypeError as e:
+            if USE_NFLOWS:
+                logger.error(
+                    (
+                        f"Could not initialise transform with with error: {e}. "
+                        "The version of `nflows` being used may not support "
+                        "`scale_activation`. Trying without `scale_activation`."
+                        " Full traceback:"
+                    ),
+                    exc_info=True,
+                )
+                super().__init__(
+                    mask,
+                    transform_net_create_fn,
+                    unconditional_transform=unconditional_transform,
+                    **kwargs,
+                )
+                logger.warning(
+                    "Using affine coupling transform without "
+                    "`scale_activation`, this is not recommended!"
+                )
+            else:
+                raise e

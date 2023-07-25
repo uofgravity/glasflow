@@ -10,6 +10,9 @@ target-version = ["py36", "py37", "py38", "py39"]
 extend-exclude = "submodules"
 
 [tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
 testpaths = [
     "tests"
 ]

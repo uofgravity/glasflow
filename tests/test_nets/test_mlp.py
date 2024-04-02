@@ -1,4 +1,5 @@
 """Tests for the MLP submodule"""
+
 from unittest.mock import create_autospec
 from glasflow.nets.mlp import MLP
 import pytest

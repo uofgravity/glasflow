@@ -1,6 +1,7 @@
 """
 Multidimensional uniform distribution.
 """
+
 from typing import Union
 
 from glasflow.nflows.distributions import Distribution

@@ -1,4 +1,5 @@
 """Test for the glasflow utilities"""
+
 from glasflow.utils import get_torch_size
 import pytest
 import torch

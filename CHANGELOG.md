@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1]
+
+### Fixed
+
+- Addressed a deprecation warning in the `nflows` submodule when using LU decomposition (https://github.com/uofgravity/nflows/pull/10, https://github.com/uofgravity/glasflow/pull/57)
+
 ## [0.3.0]
 
 ### Added
@@ -64,7 +70,8 @@ Patch to fix CI not uploading release to PyPI
 - Add `nflows` submodule that replaces `nflows` dependency
 - Add option for user-defined masks in coupling-based flows
 
-[Unreleased]: https://github.com/uofgravity/glasflow/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/uofgravity/glasflow/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/uofgravity/glasflow/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/uofgravity/glasflow/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/uofgravity/glasflow/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/uofgravity/glasflow/compare/v0.1.1...v0.1.2

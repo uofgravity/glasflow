@@ -1,4 +1,5 @@
 """Distributions that include Learned Accept/Reject Sampling (LARS)."""
+
 from typing import Callable, Union
 
 from glasflow.nflows.distributions import Distribution

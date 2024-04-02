@@ -1,6 +1,7 @@
 """
 General configuration for tests.
 """
+
 import glasflow
 
 

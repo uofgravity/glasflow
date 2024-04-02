@@ -20,6 +20,7 @@ jobs:
         with:
           jupyter: true
           options: "--check --diff"
+          version: "24.2"
   flake8:
     name: Flake8
     runs-on: ubuntu-latest

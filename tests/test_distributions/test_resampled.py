@@ -1,4 +1,5 @@
 """Tests for the resampled distributions"""
+
 from glasflow.distributions.resampled import ResampledGaussian
 from glasflow.nflows.distributions import StandardNormal
 from glasflow.nets.mlp import MLP

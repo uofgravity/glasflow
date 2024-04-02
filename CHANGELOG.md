@@ -71,7 +71,7 @@ Patch to fix CI not uploading release to PyPI
 - Add option for user-defined masks in coupling-based flows
 
 [Unreleased]: https://github.com/uofgravity/glasflow/compare/v0.3.1...HEAD
-[0.3.0]: https://github.com/uofgravity/glasflow/compare/v0.3.0...v0.3.1
+[0.3.1]: https://github.com/uofgravity/glasflow/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/uofgravity/glasflow/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/uofgravity/glasflow/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/uofgravity/glasflow/compare/v0.1.1...v0.1.2

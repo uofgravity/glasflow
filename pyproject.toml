@@ -2,12 +2,84 @@
 requires = ["setuptools>=64.0.3", "wheel", "setuptools_scm[toml]"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "glasflow"
+description = "Normalising flows using nflows"
+authors = [
+    {name = "Michael J. Williams", email = "michaeljw1@googlemail.com"},
+    {name = "Federico Stachurski", email = "f.stachurski.1@research.gla.ac.uk"},
+    {name = "Jordan McGinn"},
+    {name = "John Veitch", email = "john.veitch@glasgow.ac.uk"},
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = [
+    "normalising flows",
+    "normalizing flows",
+    "machine learning",
+]
+dependencies = [
+    "numpy",
+    "torch>=1.11.0",
+]
+
+dynamic = [
+    "version",
+]
+[project.urls]
+"Homepage" = "https://github.com/uofgravity/glasflow"
+
+[project.optional-dependencies]
+nflows = ["nflows"]
+nflows-test = [
+    "pytest",
+    "pytest-rerunfailures",
+    "torchtestcase",
+    "UMNN",
+]
+dev = [
+    "black[jupyter]",
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "pytest-integration",
+    "pytest-requires",
+    "pytest-rerunfailures",
+]
+examples = [
+    "ipykernel",
+    "matplotlib",
+    "scikit-learn",
+    "scipy",
+    "seaborn",
+]
+
+[tool.setuptools.package-dir]
+glasflow = "src/glasflow"
+"glasflow.nflows" = "submodules/nflows/nflows"
+
 [tool.setuptools_scm]
 
 [tool.black]
 line-length = 79
-target-version = ["py36", "py37", "py38", "py39"]
+target-version = ["py311"]
 extend-exclude = "submodules"
+
+[tool.flake8]
+exclude = [
+    "submodules",
+    "build",
+]
+ignore = ["E203", "E266", "E501", "W503", "F403", "F401"]
+max-line-length = 79
+max-complexity = 18
+select = ["B", "C", "E", "F", "W", "T4", "B9"]
 
 [tool.pytest.ini_options]
 addopts = [

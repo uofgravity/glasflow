@@ -68,7 +68,7 @@ glasflow = "src/glasflow"
 
 [tool.black]
 line-length = 79
-target-version = ["py38"]
+target-version = ["py38", "py39", "py310", "py311", "py312"]
 extend-exclude = "submodules"
 
 [tool.flake8]

@@ -1,8 +1,13 @@
 from glasflow.nflows import transforms
+import logging
 import torch.nn.functional as F
 
 from .base import Flow
 from ..transforms.utils import get_scale_activation
+from .. import USE_NFLOWS
+
+
+logger = logging.getLogger(__name__)
 
 
 class MaskedAutoregressiveFlow(Flow):
@@ -149,9 +154,16 @@ class MaskedAffineAutoregressiveFlow(MaskedAutoregressiveFlow):
         use_random_permutations=False,
         use_random_masks=False,
         distribution=None,
-        scale_activation=None,
         **kwargs,
     ):
+
+        if USE_NFLOWS and kwargs.get("scale_activation", None) is not None:
+            logger.error("nflows backend does not support scale activation")
+        elif kwargs.get("scale_activation", None) is not None:
+            kwargs["scale_activation"] = get_scale_activation(
+                kwargs["scale_activation"]
+            )
+
         super().__init__(
             transforms.autoregressive.MaskedAffineAutoregressiveTransform,
             n_inputs=n_inputs,
@@ -166,7 +178,6 @@ class MaskedAffineAutoregressiveFlow(MaskedAutoregressiveFlow):
             use_random_permutations=use_random_permutations,
             use_random_masks=use_random_masks,
             distribution=distribution,
-            scale_activation=get_scale_activation(scale_activation),
             **kwargs,
         )
 

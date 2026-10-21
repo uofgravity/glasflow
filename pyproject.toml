@@ -12,7 +12,7 @@ authors = [
     {name = "John Veitch", email = "john.veitch@glasgow.ac.uk"},
 ]
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 license = {text = "MIT"}
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -68,7 +68,7 @@ glasflow = "src/glasflow"
 
 [tool.black]
 line-length = 79
-target-version = ["py38", "py39", "py310", "py311", "py312"]
+target-version = ["py311", "py312"]
 extend-exclude = "submodules"
 
 [tool.flake8]

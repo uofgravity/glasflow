@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add Python 3.13 and 3.14 to the test matrices for glasflow and the bundled nflows fork.
+- Drop support for Python 3.10 and older in glasflow and the bundled nflows fork. Python 3.11 or newer is now required.
+
 ## [0.4.1]
 
 ### Fixed

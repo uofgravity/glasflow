@@ -10,6 +10,7 @@ Code is hosted at: https://github.com/uofgravity/glasflow
 nflows: https://github.com/bayesiains/nflows
 """
 import importlib.util
+from importlib.metadata import version, PackageNotFoundError
 import logging
 import os
 import pkgutil
@@ -66,11 +67,6 @@ from .flows import (  # noqa
     CouplingNSF,
     RealNVP,
 )
-
-try:
-    from importlib.metadata import version, PackageNotFoundError
-except ImportError:  # for Python < 3.8
-    from importlib_metadata import version, PackageNotFoundError
 
 try:
     __version__ = version(__name__)

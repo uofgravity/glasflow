@@ -8,6 +8,8 @@ glasflow is a Python library containing a collection of [Normalizing flows](http
 
 ## Installation
 
+glasflow requires Python 3.11 or newer.
+
 glasflow is available to install via `pip`:
 
 ```shell

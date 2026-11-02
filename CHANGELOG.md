@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0]
+
 ### Changed
 
-- Add Python 3.13 and 3.14 to the test matrices for glasflow and the bundled nflows fork.
-- Drop support for Python 3.10 and older in glasflow and the bundled nflows fork. Python 3.11 or newer is now required.
+- Update the bundled nflows fork to commit `d0d6c93`, making unconstrained rational-quadratic splines compatible with `torch.compile` without graph breaks. (https://github.com/uofgravity/nflows/pull/13)
+- Add Python 3.13 and 3.14 to the test matrices for glasflow and the bundled nflows fork. (https://github.com/uofgravity/glasflow/pull/69, https://github.com/uofgravity/nflows/pull/14)
+- Drop support for Python 3.10 and older in glasflow and the bundled nflows fork. Python 3.11 or newer is now required. (https://github.com/uofgravity/glasflow/pull/69, https://github.com/uofgravity/nflows/pull/14)
 
 ## [0.4.1]
 
@@ -93,7 +96,8 @@ Patch to fix CI not uploading release to PyPI
 - Add `nflows` submodule that replaces `nflows` dependency
 - Add option for user-defined masks in coupling-based flows
 
-[Unreleased]: https://github.com/uofgravity/glasflow/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/uofgravity/glasflow/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/uofgravity/glasflow/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/uofgravity/glasflow/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/uofgravity/glasflow/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/uofgravity/glasflow/compare/v0.3.0...v0.3.1

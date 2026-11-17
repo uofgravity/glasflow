@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update the bundled nflows fork to include the spline round-trip precision fixes and CI action updates (uofgravity/nflows#15, uofgravity/nflows#16).
+- Run the bundled nflows suite on pull requests that change its submodule pointer, test workflow, or `pyproject.toml`.
+
 ## [0.5.0]
 
 ### Changed

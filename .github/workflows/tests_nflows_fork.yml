@@ -3,6 +3,12 @@ name: Check nflows fork
 on:
   push:
     branches: [ main, release*]
+  pull_request:
+    branches: [ main, release* ]
+    paths:
+      - 'submodules/nflows'
+      - '.github/workflows/tests_nflows_fork.yml'
+      - 'pyproject.toml'
   schedule:
     # Run tests at 7:00 UTC everyday
     - cron: '0 7 * * *'

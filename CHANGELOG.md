@@ -9,8 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update checkout, Python setup, and PyPI publishing actions to current releases; use Python 3.14 for release builds.
 - Update the bundled nflows fork to include the spline round-trip and endpoint precision fixes and CI action updates (uofgravity/nflows#15, uofgravity/nflows#16, uofgravity/nflows#17).
 - Run the bundled nflows suite on pull requests that change its submodule pointer, test workflow, or `pyproject.toml`.
+
+### Fixed
+
+- Fetch release history and tags when building distributions so setuptools-scm can determine the version.
 
 ## [0.5.0]
 

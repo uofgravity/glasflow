@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository and submodules
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7.0.1
       with:
         submodules: recursive
+        fetch-depth: 0
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7.1.0
       with:
-        python-version: "3.x"
+        python-version: "3.14"
     - name: Install pypa/build
       run: >-
         python -m
@@ -32,6 +33,6 @@ jobs:
         --outdir dist/
         .
     - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@master
+      uses: pypa/gh-action-pypi-publish@v1.14.3
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}

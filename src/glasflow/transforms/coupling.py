@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Alternative implementations of coupling transforms"""
+
 import logging
 import warnings
 
@@ -10,7 +11,6 @@ import torch.nn.functional as F
 
 from .utils import get_scale_activation
 from .. import USE_NFLOWS
-
 
 logger = logging.getLogger(__name__)
 

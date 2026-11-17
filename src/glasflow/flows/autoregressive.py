@@ -6,7 +6,6 @@ from .base import Flow
 from ..transforms.utils import get_scale_activation
 from .. import USE_NFLOWS
 
-
 logger = logging.getLogger(__name__)
 
 

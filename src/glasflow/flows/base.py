@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Base class for all normalising flows."""
+
 from torch.nn import Module
 
 

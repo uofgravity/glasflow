@@ -44,7 +44,7 @@ nflows-test = [
     "UMNN",
 ]
 dev = [
-    "black[jupyter]",
+    "black[jupyter]==26.10.1",
     "pre-commit",
     "pytest",
     "pytest-cov",

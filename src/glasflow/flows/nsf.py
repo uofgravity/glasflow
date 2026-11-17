@@ -4,6 +4,7 @@ Implementation of Neural Spline Flows.
 
 See: https://arxiv.org/abs/1906.04032
 """
+
 from glasflow.nflows.transforms.coupling import (
     PiecewiseRationalQuadraticCouplingTransform,
 )

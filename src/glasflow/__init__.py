@@ -9,6 +9,7 @@ Code is hosted at: https://github.com/uofgravity/glasflow
 
 nflows: https://github.com/bayesiains/nflows
 """
+
 import importlib.util
 from importlib.metadata import version, PackageNotFoundError
 import logging

@@ -4,7 +4,6 @@ from typing import Callable, Union
 import torch
 import torch.nn.functional as F
 
-
 SCALE_ACTIVATIONS = dict(
     nflows=lambda x: torch.sigmoid(x + 2) + 1e-3,
     nflows_general=lambda x: (F.softplus(x) + 1e-3).clamp(0, 3),

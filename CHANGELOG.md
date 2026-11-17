@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Set the nflows backend through the CI job environment so Windows tests exercise both backends correctly.
+
 ### Changed
 
 - Update the bundled nflows fork to include the spline round-trip and endpoint precision fixes and CI action updates (uofgravity/nflows#15, uofgravity/nflows#16, uofgravity/nflows#17).

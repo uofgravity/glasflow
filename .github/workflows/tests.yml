@@ -24,6 +24,8 @@ jobs:
         python-version: ["3.11", "3.12", "3.13", "3.14"]
         use-nflows: [True, False]
     runs-on: ${{ matrix.os }}-latest
+    env:
+      GLASFLOW_USE_NFLOWS: ${{ matrix.use-nflows }}
 
     steps:
     - name: Checkout repository and submodules
@@ -46,9 +48,6 @@ jobs:
       if: ${{ matrix.use-nflows }}
       run: |
         pip install nflows
-    - name: Set nflows version
-      run: |
-        echo "GLASFLOW_USE_NFLOWS=${{ matrix.use-nflows }}" >> $GITHUB_ENV
     - name: Print environment variables
       run: |
         env

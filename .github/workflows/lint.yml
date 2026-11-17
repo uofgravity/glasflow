@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: psf/black@stable
+      - uses: psf/black@26.10.1
         with:
           jupyter: true
           options: "--check --diff"
-          version: "24.2"
+          version: "26.10.1"
   flake8:
     name: Flake8
     runs-on: ubuntu-latest
@@ -29,11 +29,11 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v7.1.0
       with:
-        python-version: '3.x'
+        python-version: '3.14'
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 Flake8-pyproject
+        python -m pip install flake8==7.5.0 Flake8-pyproject==1.2.4
     - name: Lint with flake8
       run: |
         python -m flake8 .

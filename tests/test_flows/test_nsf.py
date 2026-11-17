@@ -2,6 +2,7 @@
 """
 Tests for neural spline flows.
 """
+
 from unittest.mock import MagicMock, patch
 
 import numpy as np

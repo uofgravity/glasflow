@@ -1,4 +1,5 @@
 "Tests for the Multivariate uniform distribution"
+
 from unittest.mock import create_autospec
 
 import pytest

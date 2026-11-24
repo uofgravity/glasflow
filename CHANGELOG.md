@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Set the nflows backend through the CI job environment so Windows tests exercise both backends correctly.
+- Fix Windows CI so unit and integration tests exercise both the bundled and external nflows backends.
 
 ### Changed
 
+- Run unit and integration tests for both nflows backends on the same runner. Run CI tests on Python 3.11 and 3.14 on macOS and Windows and on Python 3.11 through 3.14 on Linux.
 - Update Black, Flake8, and nbstripout; align local and CI formatter versions and apply the resulting whitespace changes.
 - Update checkout, Python setup, and PyPI publishing actions to current releases; use Python 3.14 for release builds.
 - Update the bundled nflows fork to include the spline round-trip and endpoint precision fixes and CI action updates (uofgravity/nflows#15, uofgravity/nflows#16, uofgravity/nflows#17).
